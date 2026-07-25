@@ -167,23 +167,23 @@ section.on-ink .eyebrow::before{ background: var(--marigold); }
   .nav-links{
     order: 3;
     position: static; inset: auto; transform: none; transition: none;
-    display: flex; flex-direction: row; flex-wrap: nowrap;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
     width: 100%;
     background: var(--cloud);
     border: 1px solid var(--line);
     border-radius: 999px;
-    padding: 6px;
+    padding: 5px;
     gap: 2px;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
   }
-  .nav-links::-webkit-scrollbar{ display:none; }
   .nav-links a{
-    flex: 0 0 auto;
+    text-align: center;
     white-space: nowrap;
-    font-size: 12px;
-    padding: 11px 18px;
+    overflow: hidden;
+    text-overflow: clip;
+    font-size: 10px;
+    letter-spacing: 0.02em;
+    padding: 11px 2px;
     border-radius: 999px;
     color: var(--ink-soft);
     transition: background .3s var(--ease), color .3s var(--ease);
