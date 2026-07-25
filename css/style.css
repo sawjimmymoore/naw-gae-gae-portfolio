@@ -470,3 +470,49 @@ section.on-ink .chip{ border-color: var(--line-on-ink); color: rgba(244,239,224,
 .text-center{ text-align:center; margin-left:auto; margin-right:auto; }
 .divider{ height:1px; background:var(--line); margin: 90px 0; }
 section.on-ink .divider{ background: var(--line-on-ink); }
+
+/* ============================================================
+   LIGHTBOX (gallery click-to-enlarge)
+   ============================================================ */
+.gallery a{ cursor: zoom-in; }
+.lightbox-overlay{
+  position: fixed; inset: 0; z-index: 1000;
+  background: rgba(20,24,17,.94);
+  display: flex; align-items: center; justify-content: center;
+  padding: 56px 32px;
+  opacity: 0; visibility: hidden;
+  transition: opacity .28s var(--ease);
+}
+.lightbox-overlay.active{ opacity: 1; visibility: visible; }
+.lightbox-overlay img{
+  max-width: 90vw; max-height: 84vh;
+  width: auto; height: auto;
+  object-fit: contain;
+  box-shadow: 0 30px 80px rgba(0,0,0,.55);
+  border-radius: 2px;
+  transform: scale(.94); transition: transform .28s var(--ease);
+  cursor: default;
+}
+.lightbox-overlay.active img{ transform: scale(1); }
+.lightbox-close{
+  position: absolute; top: 22px; right: 26px;
+  width: 46px; height: 46px; border-radius: 50%;
+  background: rgba(244,239,224,.08);
+  border: 1px solid rgba(244,239,224,.28);
+  color: var(--parchment);
+  font-family: var(--font-body); font-size: 26px; line-height: 1;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: background .2s, transform .2s;
+}
+.lightbox-close:hover{ background: rgba(244,239,224,.18); transform: scale(1.05); }
+.lightbox-caption{
+  position: absolute; left: 0; right: 0; bottom: 26px;
+  text-align: center; padding: 0 60px;
+  font-family: var(--font-mono); font-size: 12.5px; letter-spacing: .06em;
+  color: rgba(244,239,224,.68);
+}
+@media (max-width: 760px){
+  .lightbox-overlay{ padding: 32px 16px; }
+  .lightbox-close{ top: 12px; right: 14px; width: 40px; height: 40px; font-size: 22px; }
+  .lightbox-caption{ padding: 0 24px; font-size: 11.5px; bottom: 16px; }
+}

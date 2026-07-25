@@ -87,3 +87,55 @@ if (heroMedia) {
 
 // ---------- current year ----------
 document.querySelectorAll('.js-year').forEach(el => el.textContent = new Date().getFullYear());
+
+// ---------- lightbox gallery ----------
+(function () {
+  const triggers = document.querySelectorAll('.gallery a');
+  if (!triggers.length) return;
+
+  const overlay = document.createElement('div');
+  overlay.className = 'lightbox-overlay';
+  overlay.setAttribute('role', 'dialog');
+  overlay.setAttribute('aria-hidden', 'true');
+  overlay.innerHTML =
+    '<button type="button" class="lightbox-close" aria-label="Close">&times;</button>' +
+    '<img alt="">' +
+    '<div class="lightbox-caption"></div>';
+  document.body.appendChild(overlay);
+
+  const overlayImg = overlay.querySelector('img');
+  const overlayCaption = overlay.querySelector('.lightbox-caption');
+  const closeBtn = overlay.querySelector('.lightbox-close');
+
+  function openLightbox(src, alt) {
+    overlayImg.src = src;
+    overlayImg.alt = alt || '';
+    overlayCaption.textContent = alt || '';
+    overlay.classList.add('active');
+    overlay.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    overlay.classList.remove('active');
+    overlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  triggers.forEach(a => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      const img = a.querySelector('img');
+      openLightbox(a.getAttribute('href'), img ? img.alt : '');
+    });
+  });
+
+  // click anywhere outside the image (the backdrop) closes it
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) closeLightbox();
+  });
+  closeBtn.addEventListener('click', closeLightbox);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && overlay.classList.contains('active')) closeLightbox();
+  });
+})();
